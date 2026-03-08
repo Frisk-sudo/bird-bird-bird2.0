@@ -464,6 +464,24 @@ window.addEventListener('keydown', function (e) {
 window.addEventListener('keyup', function (e) {
     keys[e.key] = false;
 })
+
+canvas.addEventListener('touchstart', function (e) {
+    // Перезапуск при Game Over или Victory
+    if (gameOverFlag || victory) {
+        e.preventDefault(); // Предотвращаем стандартное поведение браузера
+        restartGame();
+    }
+});
+
+// Альтернативный способ: тап по любому месту экрана
+document.addEventListener('touchstart', function (e) {
+    // Проверяем, что это не текстовое поле или другой интерактивный элемент
+    if ((gameOverFlag || victory) && e.target === canvas) {
+        restartGame();
+    }
+});
+
+
 //
 function drawFrame() {
     canvasContext.clearRect(0, 0, GAME.displayWidth, GAME.displayHeight);
@@ -518,38 +536,20 @@ BIRD.img.onload = function () {
         }
     }
 }
-function startGame() {
-    resizeCanvas();
-    updateGameBounds();
-    initMic();
-    createPipe();
-    play();
-}
 
-// Инициализация при загрузке всех изображений
-function initializeGame() {
-    if (BIRD.img.complete && PIPE.imgTop.complete && PIPE.imgBottom.complete) {
-        startGame();
-    }
-}
+BIRD.img.onload = function () {
+    PIPE.imgTop.onload = function () {
+        PIPE.imgBottom.onload = function () {
+            resizeCanvas();
+            updateGameBounds();
 
-// Автозапуск при загрузке страницы
-window.onload = function() {
-    if (BIRD.img.complete && PIPE.imgTop.complete && PIPE.imgBottom.complete) {
-        startGame();
-    } else {
-        // Если изображения ещё загру��аются, ждём их загрузки
-        BIRD.img.onload = function () {
-            PIPE.imgTop.onload = function () {
-                PIPE.imgBottom.onload = function () {
-                    startGame();
-                }
-            }
+            initMic();
+            createPipe();
+            play();
         }
     }
-};
+}
 
-// Обработка изменения размера окна
 let resizeTimeout;
 window.addEventListener('resize', function () {
     clearTimeout(resizeTimeout);
@@ -559,7 +559,9 @@ window.addEventListener('resize', function () {
     }, 200);
 });
 
-// Страховка: если изображения уже кэшированы браузером
-if (BIRD.img.complete && PIPE.imgTop.complete && PIPE.imgBottom.complete) {
-    window.addEventListener('load', startGame);
+if (BIRD.img.complete) {
+    resizeCanvas();
+    updateGameBounds();
+    createPipe();
+    play();
 }
