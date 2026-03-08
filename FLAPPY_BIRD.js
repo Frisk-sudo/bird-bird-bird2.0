@@ -245,7 +245,7 @@ function drawGameOver() {
         canvasContext.fillStyle = "black";
         canvasContext.textAlign = "center";
         canvasContext.fillText("Игра окончена!", GAME.displayWidth / 2, GAME.displayHeight / 2)
-        canvasContext.fillText("Нажмите пробел, чтобы продолжить", GAME.displayWidth / 2, GAME.displayHeight / 2 + 85)
+        canvasContext.fillText("Нажмите пробел,\nчтобы продолжить", GAME.displayWidth / 2, GAME.displayHeight / 2 + 85)
     }
 }
 
@@ -255,7 +255,7 @@ function drawVictory() {
         canvasContext.fillStyle = "black";
         canvasContext.textAlign = "center";
         canvasContext.fillText("Победа!", GAME.displayWidth / 2, GAME.displayHeight / 2)
-        canvasContext.fillText("Нажмите пробел, чтобы продолжить", GAME.displayWidth / 2, GAME.displayHeight / 2 + 85)
+        canvasContext.fillText("Нажмите пробел,\nчтобы продолжить", GAME.displayWidth / 2, GAME.displayHeight / 2 + 85)
     }
 }
 
@@ -565,3 +565,4 @@ if (BIRD.img.complete) {
     createPipe();
     play();
 }
+
