@@ -572,19 +572,6 @@ BIRD.img.onload = function () {
     }
 }
 
-BIRD.img.onload = function () {
-    PIPE.imgTop.onload = function () {
-        PIPE.imgBottom.onload = function () {
-            resizeCanvas();
-            updateGameBounds();
-
-            initMic();
-            createPipe();
-            play();
-        }
-    }
-}
-
 let resizeTimeout;
 window.addEventListener('resize', function () {
     clearTimeout(resizeTimeout);
@@ -600,5 +587,6 @@ if (BIRD.img.complete) {
     createPipe();
     play();
 }
+
 
 
