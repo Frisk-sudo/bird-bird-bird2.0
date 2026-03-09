@@ -241,21 +241,56 @@ function checkVictory() {
 
 function drawGameOver() {
     if (gameOverFlag) {
-        canvasContext.font = "60px serif";
-        canvasContext.fillStyle = "black";
+        const mainFontSize = getFontSize(60);
+        const subFontSize = getFontSize(35);
+        const lineSpacing = GAME.displayHeight * 0.12; // 12% от высоты экрана
+        
+        // Полупрозрачный фон для лучшей читаемости
+        canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
+        canvasContext.fillRect(0, 0, GAME.displayWidth, GAME.displayHeight);
+        
+        canvasContext.font = mainFontSize + "px serif";
+        canvasContext.fillStyle = "white";
+        canvasContext.strokeStyle = "black";
+        canvasContext.lineWidth = 3;
         canvasContext.textAlign = "center";
-        canvasContext.fillText("Игра окончена!", GAME.displayWidth / 2, GAME.displayHeight / 2)
-        canvasContext.fillText("Нажмите пробел,\nчтобы продолжить", GAME.displayWidth / 2, GAME.displayHeight / 2 + 85)
+        canvasContext.textBaseline = "middle";
+        
+        canvasContext.strokeText("Игра окончена!", GAME.displayWidth / 2, GAME.displayHeight / 2);
+        canvasContext.fillText("Игра окончена!", GAME.displayWidth / 2, GAME.displayHeight / 2);
+        
+        canvasContext.font = subFontSize + "px serif";
+        canvasContext.lineWidth = 2;
+        canvasContext.strokeText("Нажмите пробел", GAME.displayWidth / 2, GAME.displayHeight / 2 + lineSpacing);
+        canvasContext.fillText("Нажмите пробел", GAME.displayWidth / 2, GAME.displayHeight / 2 + lineSpacing);
     }
 }
 
 function drawVictory() {
     if (victory) {
-        canvasContext.font = "60px serif";
-        canvasContext.fillStyle = "black";
+        const mainFontSize = getFontSize(60);
+        const subFontSize = getFontSize(35);
+        const lineSpacing = GAME.displayHeight * 0.12;
+        
+        // Полупрозрачный фон
+        canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
+        canvasContext.fillRect(0, 0, GAME.displayWidth, GAME.displayHeight);
+        
+        canvasContext.font = mainFontSize + "px serif";
+        canvasContext.fillStyle = "gold";
+        canvasContext.strokeStyle = "darkgoldenrod";
+        canvasContext.lineWidth = 3;
         canvasContext.textAlign = "center";
-        canvasContext.fillText("Победа!", GAME.displayWidth / 2, GAME.displayHeight / 2)
-        canvasContext.fillText("Нажмите пробел,\nчтобы продолжить", GAME.displayWidth / 2, GAME.displayHeight / 2 + 85)
+        canvasContext.textBaseline = "middle";
+        
+        canvasContext.strokeText("Победа!", GAME.displayWidth / 2, GAME.displayHeight / 2);
+        canvasContext.fillText("Победа!", GAME.displayWidth / 2, GAME.displayHeight / 2);
+        
+        canvasContext.font = subFontSize + "px serif";
+        canvasContext.fillStyle = "white";
+        canvasContext.lineWidth = 2;
+        canvasContext.strokeText("Нажмите пробел", GAME.displayWidth / 2, GAME.displayHeight / 2 + lineSpacing);
+        canvasContext.fillText("Нажмите пробел", GAME.displayWidth / 2, GAME.displayHeight / 2 + lineSpacing);
     }
 }
 
@@ -565,4 +600,5 @@ if (BIRD.img.complete) {
     createPipe();
     play();
 }
+
 
