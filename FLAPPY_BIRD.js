@@ -241,59 +241,37 @@ function checkVictory() {
 
 function drawGameOver() {
     if (gameOverFlag) {
-        const mainFontSize = getFontSize(60);
-        const subFontSize = getFontSize(35);
-        const lineSpacing = GAME.displayHeight * 0.12; // 12% от высоты экрана
+        // Определяем размер шрифта в зависимости от ширины экрана
+        const fontSize = Math.min(60, GAME.displayWidth / 8);
         
-        // Полупрозрачный фон для лучшей читаемости
-        canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
-        canvasContext.fillRect(0, 0, GAME.displayWidth, GAME.displayHeight);
-        
-        canvasContext.font = mainFontSize + "px serif";
-        canvasContext.fillStyle = "white";
-        canvasContext.strokeStyle = "black";
-        canvasContext.lineWidth = 3;
+        canvasContext.font = `${fontSize}px serif`;
+        canvasContext.fillStyle = "black";
         canvasContext.textAlign = "center";
-        canvasContext.textBaseline = "middle";
         
-        canvasContext.strokeText("Игра окончена!", GAME.displayWidth / 2, GAME.displayHeight / 2);
-        canvasContext.fillText("Игра окончена!", GAME.displayWidth / 2, GAME.displayHeight / 2);
+        // Вычисляем позицию текста с отступом
+        const textY = GAME.displayHeight / 2;
+        const textY2 = textY + fontSize * 1.5;
         
-        canvasContext.font = subFontSize + "px serif";
-        canvasContext.lineWidth = 2;
-        canvasContext.strokeText("Нажмите пробел", GAME.displayWidth / 2, GAME.displayHeight / 2 + lineSpacing);
-        canvasContext.fillText("Нажмите пробел", GAME.displayWidth / 2, GAME.displayHeight / 2 + lineSpacing);
+        canvasContext.fillText("Игра окончена!", GAME.displayWidth / 2, textY);
+        canvasContext.fillText("Нажмите пробел, чтобы продолжить", GAME.displayWidth / 2, textY2);
     }
 }
 
 function drawVictory() {
     if (victory) {
-        const mainFontSize = getFontSize(60);
-        const subFontSize = getFontSize(35);
-        const lineSpacing = GAME.displayHeight * 0.12;
+        const fontSize = Math.min(60, GAME.displayWidth / 8);
         
-        // Полупрозрачный фон
-        canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
-        canvasContext.fillRect(0, 0, GAME.displayWidth, GAME.displayHeight);
-        
-        canvasContext.font = mainFontSize + "px serif";
-        canvasContext.fillStyle = "gold";
-        canvasContext.strokeStyle = "darkgoldenrod";
-        canvasContext.lineWidth = 3;
+        canvasContext.font = `${fontSize}px serif`;
+        canvasContext.fillStyle = "black";
         canvasContext.textAlign = "center";
-        canvasContext.textBaseline = "middle";
         
-        canvasContext.strokeText("Победа!", GAME.displayWidth / 2, GAME.displayHeight / 2);
-        canvasContext.fillText("Победа!", GAME.displayWidth / 2, GAME.displayHeight / 2);
+        const textY = GAME.displayHeight / 2;
+        const textY2 = textY + fontSize * 1.5;
         
-        canvasContext.font = subFontSize + "px serif";
-        canvasContext.fillStyle = "white";
-        canvasContext.lineWidth = 2;
-        canvasContext.strokeText("Нажмите пробел", GAME.displayWidth / 2, GAME.displayHeight / 2 + lineSpacing);
-        canvasContext.fillText("Нажмите пробел", GAME.displayWidth / 2, GAME.displayHeight / 2 + lineSpacing);
+        canvasContext.fillText("Победа!", GAME.displayWidth / 2, textY);
+        canvasContext.fillText("Нажмите пробел,\nчтобы продолжить", GAME.displayWidth / 2, textY2);
     }
 }
-
 function updateBird() {
    
     if (keys["ArrowUp"] || keys["w"]) {
@@ -587,6 +565,7 @@ if (BIRD.img.complete) {
     createPipe();
     play();
 }
+
 
 
 
